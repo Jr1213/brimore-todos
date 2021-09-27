@@ -11,8 +11,8 @@ Our team was already able to complete the following:
 * Add [AntDesignVue](https://2x.antdv.com/docs/vue/introduce/) for UI components.
 
 ## Mission
-- [ ] Fork/Clone this repository into your account.
-- [ ] Create a named `vuex` module to hold your todos.
+- [*] Fork/Clone this repository into your account.
+- [*] Create a named `vuex` module to hold your todos.
 - [ ] Do all your business logic, API Calls, inside the folder named `core`.
 - [ ] Complete the CRUD features in the GUI and make sure they are reflected in the `vuex` store.
 - [ ] Write concise commit messages.
