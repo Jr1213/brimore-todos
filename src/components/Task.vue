@@ -1,16 +1,15 @@
 <template>
   <div class="tasks">
-      <div @click="edit(task.id)" v-for="task in data.slice(0,5)" v-bind:key="task.id" class="data">
+      <div  v-for="task in data" v-bind:key="task.id" class="data">
         <p class="task">{{task.title}}</p>
-        <EditTask title="task.title" complete="task.completed" v-show="editForm"/>
+       <button @click="deletTask(task.id)"> delete </button>
       </div>
-      <button @click="showAddTask"> + add new task</button>
   </div>
+  <button @click="showAddTask" class="newTask"> + add new task</button>
 </template>
 
 <script>
 import axios from 'axios';
-import EditTask from './EditTask.vue';
 
 export default {
   name: 'Task',
@@ -21,7 +20,6 @@ export default {
     };
   },
   components: {
-    EditTask,
   },
   mounted() {
     axios
@@ -38,8 +36,10 @@ export default {
       this.showAddTasks = true;
       this.$emit('showAddTask', this.showAddTasks);
     },
-    edit() {
-      this.editForm = !this.editForm;
+    deletTask(id) {
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then((res) => {
+        console.log(res);
+      });
     },
   },
 };
@@ -51,21 +51,42 @@ export default {
     width: fit-content;
     margin: 0 auto;
     box-shadow: #ccc 0px 0px 16px 1px;
+    height: 50vh;
+    overflow-y: scroll;
+    position: relative;
     .data{
         cursor: pointer;
         transition: all 250ms ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
         .task{
             font-size: 1.5rem;
-            padding: 1rem 2rem;
+            // padding: 1rem 2rem;
         }
         &:hover{
             background-color: #ccc;
         }
-    }
         button{
+             padding: 1rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            color: #fff;
+            background-color: rgb(235, 17, 17);
+            border-radius: 50px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+    }
+}
+        .newTask{
             padding: 1rem 2rem;
             font-weight: 600;
             font-size: 1rem;
+            margin: 0 auto;
             border: none;
             outline: none;
             color: #fff;
@@ -75,5 +96,4 @@ export default {
             text-transform: uppercase;
             cursor: pointer;
         }
-}
 </style>
