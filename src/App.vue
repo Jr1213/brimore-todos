@@ -1,18 +1,22 @@
 <template>
   <h1>{{ $store.state.title }}</h1>
-  <Task @showAddTask="showAddTask"/>
+  <Task @showAddTask="showAddTask" @showEditForm="showEditForm"  @editTask="editTask"/>
   <NewTask v-if="showAddTaskForm" @closeAddTaskForm="closeAddTaskForm"/>
+  <EditTask  v-if="showEditTaskForm" v-bind:id="id" @closeEditForm="closeEditForm"/>
+
 </template>
 
 <script>
 import Task from './components/Task.vue';
 import NewTask from './components/NewTask.vue';
+import EditTask from './components/EditTask.vue';
 
 export default {
   name: 'App',
   components: {
     Task,
     NewTask,
+    EditTask,
   },
   methods: {
     showAddTask(data) {
@@ -21,10 +25,21 @@ export default {
     closeAddTaskForm(value) {
       this.showAddTaskForm = value;
     },
+    showEditForm(value) {
+      this.showEditTaskForm = value;
+    },
+    editTask(id) {
+      this.id = id;
+    },
+    closeEditForm(value) {
+      this.showEditTaskForm = value;
+    },
   },
   data() {
     return {
       showAddTaskForm: false,
+      showEditTaskForm: false,
+      id: null,
     };
   },
 };

@@ -2,7 +2,10 @@
   <div class="tasks">
       <div  v-for="task in data" v-bind:key="task.id" class="data">
         <p class="task">{{task.title}}</p>
-       <button @click="deletTask(task.id)"> delete </button>
+        <div>
+            <button @click="deletTask(task.id)"> delete </button>
+            <button @click="editTask(task.id)" class="edit"> edit </button>
+        </div>
       </div>
   </div>
   <button @click="showAddTask" class="newTask"> + add new task</button>
@@ -41,6 +44,10 @@ export default {
         console.log(res);
       });
     },
+    editTask(id) {
+      this.$emit('editTask', id);
+      this.$emit('showEditForm', true);
+    },
   },
 };
 </script>
@@ -53,9 +60,7 @@ export default {
     box-shadow: #ccc 0px 0px 16px 1px;
     height: 50vh;
     overflow-y: scroll;
-    position: relative;
     .data{
-        cursor: pointer;
         transition: all 250ms ease-in-out;
         display: flex;
         align-items: center;
@@ -63,7 +68,6 @@ export default {
         padding: 0 2rem;
         .task{
             font-size: 1.5rem;
-            // padding: 1rem 2rem;
         }
         &:hover{
             background-color: #ccc;
@@ -79,6 +83,10 @@ export default {
             border-radius: 50px;
             text-transform: uppercase;
             cursor: pointer;
+        }
+        .edit{
+            margin-left: 1rem;
+            background-color: rgb(29, 29, 221);
         }
     }
 }
